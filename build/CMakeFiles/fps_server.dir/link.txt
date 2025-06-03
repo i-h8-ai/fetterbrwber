@@ -1,1 +1,0 @@
-/usr/bin/c++ -Wl,--dependency-file=CMakeFiles/fps_server.dir/link.d CMakeFiles/fps_server.dir/server.cpp.o -o fps_server

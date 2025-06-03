@@ -1,4 +1,0 @@
-/home/foo/projects/fetterbrwoser/build/CMakeFiles/fps_server.dir
-/home/foo/projects/fetterbrwoser/build/CMakeFiles/download_deps.dir
-/home/foo/projects/fetterbrwoser/build/CMakeFiles/edit_cache.dir
-/home/foo/projects/fetterbrwoser/build/CMakeFiles/rebuild_cache.dir

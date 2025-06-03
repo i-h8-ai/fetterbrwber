@@ -1,0 +1,45 @@
+{
+  "name": "multiplayer-fps",
+  "version": "1.0.0",
+  "description": "Real-time multiplayer first-person shooter with WebGL frontend and C++ backend",
+  "main": "client/js/main.js",
+  "type": "module",
+  "scripts": {
+    "start": "serve client -l 8000",
+    "dev": "serve client -l 8000 --cors",
+    "build-server": "cd server && mkdir -p build && cd build && cmake .. && make",
+    "start-server": "cd server/build && ./fps_server",
+    "clean": "rm -rf server/build server/third_party",
+    "setup": "npm run build-server",
+    "test-client": "cd client && python -m http.server 8000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/multiplayer-fps.git"
+  },
+  "keywords": [
+    "multiplayer",
+    "fps",
+    "webgl",
+    "websocket",
+    "game",
+    "cpp",
+    "javascript",
+    "real-time"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yourusername/multiplayer-fps/issues"
+  },
+  "homepage": "https://github.com/yourusername/multiplayer-fps#readme",
+  "devDependencies": {
+    "serve": "^14.0.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "directories": {
+    "doc": "docs"
+  }
+}

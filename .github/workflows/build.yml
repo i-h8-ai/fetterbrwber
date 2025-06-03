@@ -1,0 +1,118 @@
+name: Build and Test
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-server:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Install dependencies (Ubuntu)
+      if: matrix.os == 'ubuntu-latest'
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential cmake
+        
+    - name: Install dependencies (macOS)
+      if: matrix.os == 'macos-latest'
+      run: |
+        brew install cmake
+        
+    - name: Install dependencies (Windows)
+      if: matrix.os == 'windows-latest'
+      uses: microsoft/setup-msbuild@v1
+      
+    - name: Create build directory
+      run: |
+        cd server
+        mkdir build
+        
+    - name: Configure CMake (Unix)
+      if: matrix.os != 'windows-latest'
+      run: |
+        cd server/build
+        cmake ..
+        
+    - name: Configure CMake (Windows)
+      if: matrix.os == 'windows-latest'
+      run: |
+        cd server/build
+        cmake .. -G "Visual Studio 17 2022"
+        
+    - name: Build (Unix)
+      if: matrix.os != 'windows-latest'
+      run: |
+        cd server/build
+        make
+        
+    - name: Build (Windows)
+      if: matrix.os == 'windows-latest'
+      run: |
+        cd server/build
+        cmake --build . --config Release
+        
+    - name: Test server binary (Unix)
+      if: matrix.os != 'windows-latest'
+      run: |
+        cd server/build
+        ls -la
+        file fps_server || echo "Binary not found"
+        
+    - name: Test server binary (Windows)
+      if: matrix.os == 'windows-latest'
+      run: |
+        cd server/build/Release
+        dir
+        
+  test-client:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        
+    - name: Install dependencies
+      run: npm install
+      
+    - name: Test client files
+      run: |
+        # Check if all required files exist
+        test -f client/index.html
+        test -f client/styles.css
+        test -f client/js/main.js
+        test -f client/js/game.js
+        test -f client/js/renderer.js
+        test -f client/js/input.js
+        test -f client/js/network.js
+        test -f client/js/effects.js
+        test -f client/js/ui.js
+        test -f client/js/player.js
+        test -f client/js/math.js
+        echo "All client files found!"
+        
+    - name: Validate JavaScript syntax
+      run: |
+        cd client
+        node -c js/main.js
+        node -c js/game.js
+        node -c js/renderer.js
+        node -c js/input.js
+        node -c js/network.js
+        node -c js/effects.js
+        node -c js/ui.js
+        node -c js/player.js
+        node -c js/math.js
+        echo "All JavaScript files are syntactically valid!"

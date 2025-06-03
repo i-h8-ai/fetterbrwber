@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiplayer FPS</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <canvas id="gameCanvas"></canvas>
+    
+    <div class="ui">
+        <div class="crosshair"></div>
+        <div class="health-bar">
+            <div class="health-fill" id="healthFill" style="width: 100%"></div>
+        </div>
+        <div class="ammo" id="ammo">∞</div>
+        <div class="player-list" id="playerList">
+            <div>Players: 1</div>
+            <div>You</div>
+        </div>
+        <div class="kill-feed" id="killFeed"></div>
+        <div class="damage-flash" id="damageFlash"></div>
+        <div class="death-screen" id="deathScreen">
+            <div>YOU DIED</div>
+            <div style="font-size: 24px; margin-top: 20px;">Respawning in <span id="respawnTimer">3</span>...</div>
+        </div>
+    </div>
+
+    <div class="scoreboard" id="scoreboard">
+        <h3>Scoreboard (Press TAB)</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Player</th>
+                    <th>Kills</th>
+                    <th>Deaths</th>
+                    <th>K/D</th>
+                </tr>
+            </thead>
+            <tbody id="scoreboardBody">
+            </tbody>
+        </table>
+    </div>
+
+    <div class="menu" id="mainMenu">
+        <h2>Multiplayer FPS</h2>
+        <input type="text" id="serverUrl" placeholder="Server URL (ws://localhost:8080)" value="ws://localhost:8080">
+        <br>
+        <input type="text" id="playerName" placeholder="Player Name" value="Player">
+        <br>
+        <button id="joinServerBtn">Join Server</button>
+        <button id="startOfflineBtn">Practice Offline</button>
+    </div>
+
+    <!-- Load JavaScript modules -->
+    <script type="module" src="js/math.js"></script>
+    <script type="module" src="js/renderer.js"></script>
+    <script type="module" src="js/input.js"></script>
+    <script type="module" src="js/network.js"></script>
+    <script type="module" src="js/effects.js"></script>
+    <script type="module" src="js/ui.js"></script>
+    <script type="module" src="js/player.js"></script>
+    <script type="module" src="js/game.js"></script>
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
