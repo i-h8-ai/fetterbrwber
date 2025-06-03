@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/foo/projects/fetterbrwoser/build/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
