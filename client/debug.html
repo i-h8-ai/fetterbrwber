@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug - Load JS Files One by One</title>
+</head>
+<body>
+    <h1>Debug JavaScript Files</h1>
+    <div id="status"></div>
+    
+    <script>
+        const statusDiv = document.getElementById('status');
+        
+        function logStatus(message, isError = false) {
+            const p = document.createElement('p');
+            p.textContent = message;
+            p.style.color = isError ? 'red' : 'green';
+            statusDiv.appendChild(p);
+        }
+        
+        async function loadModulesSequentially() {
+            const modules = [
+                'js/math.js',
+                'js/renderer.js', 
+                'js/input.js',
+                'js/network.js',
+                'js/effects.js',
+                'js/ui.js',
+                'js/player.js',
+                'js/game.js',
+                'js/main.js'
+            ];
+            
+            for (const module of modules) {
+                try {
+                    logStatus(`Loading ${module}...`);
+                    await import('./' + module);
+                    logStatus(`✓ ${module} loaded successfully`);
+                } catch (error) {
+                    logStatus(`✗ Error loading ${module}: ${error.message}`, true);
+                    console.error(`Error in ${module}:`, error);
+                    break;
+                }
+            }
+        }
+        
+        loadModulesSequentially();
+    </script>
+</body>
+</html>

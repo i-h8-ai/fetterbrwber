@@ -106,3 +106,4 @@ export class InputManager {
         this.mouseX = 0;
         this.mouseY = 0;
     }
+}
