@@ -65,3 +65,5 @@ Makefile
 config.local.json
 .env
 .env.local
+build
+server/build
